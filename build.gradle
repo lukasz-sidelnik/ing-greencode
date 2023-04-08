@@ -1,0 +1,58 @@
+plugins {
+    id 'java'
+    id 'groovy'
+}
+
+group 'pl.luxization'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    micronautVersion = '3.8.8'
+}
+
+dependencies {
+    annotationProcessor platform("io.micronaut:micronaut-bom:$micronautVersion")
+
+    annotationProcessor("io.micronaut.serde:micronaut-serde-processor:1.5.2")
+    implementation("io.micronaut.serde:micronaut-serde-jackson:1.5.2")
+
+    annotationProcessor "io.micronaut:micronaut-inject-java"
+    annotationProcessor "io.micronaut:micronaut-validation"
+    implementation platform("io.micronaut:micronaut-bom:$micronautVersion")
+    implementation "io.micronaut:micronaut-http-client"
+    implementation "io.micronaut:micronaut-inject"
+    implementation "io.micronaut:micronaut-validation"
+    implementation "io.micronaut:micronaut-runtime"
+    implementation "io.micronaut:micronaut-http-server-netty"
+    runtimeOnly 'io.micronaut.reactor:micronaut-reactor'
+    implementation "io.projectreactor:reactor-core"
+    runtimeOnly "ch.qos.logback:logback-classic:1.4.6"
+    implementation "org.slf4j:slf4j-api:2.0.7"
+    implementation 'org.javamoney:moneta:1.4.2'
+
+    testAnnotationProcessor platform("io.micronaut:micronaut-bom:$micronautVersion")
+    testAnnotationProcessor "io.micronaut:micronaut-inject-java"
+    testImplementation platform("io.micronaut:micronaut-bom:$micronautVersion")
+    testImplementation "io.micronaut:micronaut-inject-groovy"
+    testImplementation "io.micronaut.test:micronaut-test-spock"
+
+    testImplementation platform("org.apache.groovy:groovy-bom:4.0.11")
+    testImplementation "org.apache.groovy:groovy"
+
+    testImplementation platform("org.spockframework:spock-bom:2.3-groovy-4.0")
+    testImplementation "org.spockframework:spock-core"
+}
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
